@@ -36,6 +36,9 @@ cat >>/etc/hosts<<EOF
 172.24.10.23 kubernetesmaster2.in
 172.24.10.24 kubernetesmaster3.in
 172.24.10.25 kubernetesmaster1.in
+172.24.10.26 kubernetesnode2.in
+172.24.10.27 kubernetesnode3.in
+172.24.10.28 kubernetesnode1.in
 
 EOF
 ```
@@ -166,11 +169,29 @@ To generate a CA certficate, run the following commands in /home/kla/cert direct
     ```
    Please keep a copy in this repository [here](./ca.crt)
    
-3. copy this to kubernetes master1 for adding to kubernetes 
-   
+3. copy this to all kubernetes node 
+   run in all node
    ```shell
-   ssh kla@kubernetesmaster1.in "mkdir -p /home/kla/cert/"
+   mkdir -p /home/kla/cert/
+   chmod -R 777 /home/kla/cert/
+   chmod -R 777 /home/kla/cert/
+   cd /home/kla/cert/
+   ```
+   ```shell
    scp /home/kla/cert/ca.crt kla@kubernetesmaster1.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesmaster2.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesmaster3.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesnode1.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesnode2.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesnode3.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   ```
+   run in all node
+   ```shell
+   mkdir -p /etc/docker/certs.d/dockerregistry.in/
+   cp ca-docker-reg*.crt /etc/docker/certs.d/dockerregistry.in/
+   cp ca-docker-reg*.crt /usr/local/share/ca-certificates/
+   update-ca-certificates
+
    ```
 
    
