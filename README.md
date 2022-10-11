@@ -177,19 +177,34 @@ To generate a CA certficate, run the following commands in /home/kla/cert direct
    chmod -R 777 /home/kla/cert/
    cd /home/kla/cert/
    ```
+   !! run one by one
    ```shell
-   scp /home/kla/cert/ca.crt kla@kubernetesmaster1.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
-   scp /home/kla/cert/ca.crt kla@kubernetesmaster2.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
-   scp /home/kla/cert/ca.crt kla@kubernetesmaster3.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
-   scp /home/kla/cert/ca.crt kla@kubernetesnode1.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
-   scp /home/kla/cert/ca.crt kla@kubernetesnode2.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
-   scp /home/kla/cert/ca.crt kla@kubernetesnode3.in:/home/kla/cert/ca-docker-reg$(date +%d-%m-%Y_%H:%M).crt
+   scp /home/kla/cert/ca.crt kla@kubernetesmaster1.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesmaster1.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesmaster1.in:/home/kla/cert/dockerregistry.in.key
+   scp /home/kla/cert/ca.crt kla@kubernetesmaster2.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesmaster2.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesmaster2.in:/home/kla/cert/dockerregistry.in.key
+   scp /home/kla/cert/ca.crt kla@kubernetesmaster3.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesmaster3.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesmaster3.in:/home/kla/cert/dockerregistry.in.key
+   scp /home/kla/cert/ca.crt kla@kubernetesnode1.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesnode1.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesnode1.in:/home/kla/cert/dockerregistry.in.key
+   scp /home/kla/cert/ca.crt kla@kubernetesnode2.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesnode2.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesnode2.in:/home/kla/cert/dockerregistry.in.key
+   scp /home/kla/cert/ca.crt kla@kubernetesnode3.in:/home/kla/cert/ca.crt
+   scp /home/kla/cert/dockerregistry.in.crt kla@kubernetesnode3.in:/home/kla/cert/dockerregistry.in.crt
+   scp /home/kla/cert/dockerregistry.in.key kla@kubernetesnode3.in:/home/kla/cert/dockerregistry.in.key
    ```
    run in all node
    ```shell
    mkdir -p /etc/docker/certs.d/dockerregistry.in/
-   cp ca-docker-reg*.crt /etc/docker/certs.d/dockerregistry.in/
-   cp ca-docker-reg*.crt /usr/local/share/ca-certificates/
+   cp ca.crt /etc/docker/certs.d/dockerregistry.in/
+   cp dockerregistry.in.crt /etc/docker/certs.d/dockerregistry.in/
+   cp dockerregistry.in.key /etc/docker/certs.d/dockerregistry.in/
+   cp ca.crt /usr/local/share/ca-certificates/
    update-ca-certificates
 
    ```
